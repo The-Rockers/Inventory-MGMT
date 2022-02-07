@@ -1,0 +1,22 @@
+in MikesLemon 86
+in Smirnoff 66
+in DosEquis 9
+in Guiness 66
+in Heineken 12
+in Coors 45
+print_tree
+out MikesLemon 31
+print_tree
+out Guiness 32
+print_tree
+in Miller 79
+print_tree
+out Guiness 30
+print_tree
+in Guiness 74
+print_tree
+out DosEquis 10
+print_tree
+
+print
+size
