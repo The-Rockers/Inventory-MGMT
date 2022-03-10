@@ -104,9 +104,8 @@ class BSTMap
 		void calcSum(Node* s);
 };
 
-/*
- *Purpose: Implement member functions/methods of BSTMap class
-*/
+
+//*Purpose: Implement member functions/methods of BSTMap class
 // utility/aux function to print out a parenthetic string representation of the BST
 // INPUT: a node w in the BST whose subtree is to be printed out; or NULL
 void BSTMap::printAux(const Node* w) const {
