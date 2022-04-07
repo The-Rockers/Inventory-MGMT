@@ -54,28 +54,45 @@ string lowercase(string s)
 }
 
 void login(string usr, string pw) {
-	string credFileName = "credentials.txt";
 	string line;
 	string test_u, test_p;
 	char splitter = ':';		//format for file will be: each line is one set of credentials, separated by colon. eg USERNAME:PASSWORD
+	bool goodLogin = false;
+
+	string credFileName = "credentials.txt";
 	fstream credential;
 
 	loadFile(credFileName, credential);
-	while (getline(credential, line)) {
-		test_u = line.substr(0, line.find(splitter));
-		cout << test_u;
+
+	cout << "Enter username: ";
+	cin >> usr;
+	cout << endl << "Enter password: ";
+	cin >> pw;
+	cout << endl;
+
+	while (goodLogin == false) {
+		while (getline(credential, line)) {
+			test_u = line.substr(0, line.find(splitter));
+			test_p = line.substr(line.find(splitter) + 1);
+
+			if (test_u == usr) {
+				if (test_p == pw) {
+					cout << "good" << endl;
+					goodLogin = true;
+				}
+			}
+		}
 	}
-	cin >> test_p;
 	credential.close();
 }
 
-// simple data structure used to create nodes for (linked-list) BST-based implementation of an ordered map ADT
-// from string keys to integer values
+// simple data structure used to create nodes for (linked-list) BST-based implementation of an ordered map ADT from string keys to integer values
 struct Node {
 	string key;
 	int ht;
 	int value;
 	int sum;
+	bool isComponent;
 	Node* left;
 	Node* right;
 	Node* parent;
@@ -84,6 +101,11 @@ struct Node {
 		key(k), value(v), left(NULL), right(NULL), parent(NULL) { }
 	Node(string k, int v, Node* l, Node* r, Node* p) :
 		key(k), value(v), left(l), right(r), parent(p) { }
+};
+
+struct Location {
+	int unitNum;
+	int shelfNum;
 };
 
 
@@ -183,8 +205,7 @@ void BSTMap::deleteAll()
 	}
 }
 
-// Destructor
-// POSTCONDITION: The BST is empty
+// Destructor. POSTCONDITION: The BST is empty
 BSTMap::~BSTMap() {
 	deleteAll();
 }
@@ -536,8 +557,6 @@ void SplayTreeInventory::out(string id, int amount)
 
 }
 
-// PRECONDITION:
-// POSTCONDITION:
 // OUTPUT: total number of items in the inventory
 int SplayTreeInventory::size()
 {
@@ -590,13 +609,14 @@ int main() {
 	string line;
 
 	SplayTreeInventory S;
+
 	// open input file
 	fstream inputFile;
 	loadFile(inputFilename, inputFile);
+
 	while (getline(inputFile, line))
 	{
-		// trim whitespace
-		// echo input
+		// trim whitespace and echo input
 		cout << line << endl;
 		// parse input using a stringstream
 		stringstream lineSS(line);
@@ -604,6 +624,7 @@ int main() {
 		string command = "";
 		// store tokens in a vector
 		vector<string> tokens;
+
 		while (getline(lineSS, token, ' '))
 		{
 			// trim whitespace
@@ -611,10 +632,7 @@ int main() {
 			tokens.push_back(token);
 		}
 
-		if (tokens.size() > 0)
-		{
-			command = tokens[0]; // first token is the command
-		}
+		if (tokens.size() > 0) { command = tokens[0]; } // first token is the command
         
 		if (tokens.size() > 1)
 		{
