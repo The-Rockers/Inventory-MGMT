@@ -53,6 +53,22 @@ string lowercase(string s)
 	return s;
 }
 
+void login(string usr, string pw) {
+	string credFileName = "credentials.txt";
+	string line;
+	string test_u, test_p;
+	char splitter = ':';		//format for file will be: each line is one set of credentials, separated by colon. eg USERNAME:PASSWORD
+	fstream credential;
+
+	loadFile(credFileName, credential);
+	while (getline(credential, line)) {
+		test_u = line.substr(0, line.find(splitter));
+		cout << test_u;
+	}
+	cin >> test_p;
+	credential.close();
+}
+
 // simple data structure used to create nodes for (linked-list) BST-based implementation of an ordered map ADT
 // from string keys to integer values
 struct Node {
@@ -569,6 +585,7 @@ void SplayTreeInventory::printSize()
 
 
 int main() {
+	login("abc", "123");
 	string inputFilename = "input.txt";
 	string line;
 
